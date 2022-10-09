@@ -74,6 +74,8 @@ print(embeddings.text)
 ...
 Визуализация кластеризации
 ![image](https://user-images.githubusercontent.com/82397895/194742704-86c766a5-6c99-44be-96f3-2401b3a339bd.png)
+Файлы результатов: ![image](https://user-images.githubusercontent.com/82397895/194742907-f4e13e7a-63cb-4b96-9a91-ce5072e08806.png)
+
 
 
 ## Схема архетиктуры сервиса (?)
