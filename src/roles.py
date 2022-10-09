@@ -2,13 +2,20 @@ import os
 from pathlib import Path
 import requests
 import pickle
+from argparse import ArgumentParser
+
+parser = ArgumentParser(description='Role embeddings parser')
+
+parser.add_argument('--role_descriptions', type=Path, default='../roles_description/')
+parser.add_argument('--output_path', type=Path, default='../role_embeddings/role_embeddings.pkl')
+
+args = parser.parse_args()
 
 roles = {}
-dirpath = './roles_description/'
 
-for filename in os.listdir(dirpath):
-    file_path = os.path.join(dirpath, filename)
-    if os.path.isfile(os.path.join(dirpath, filename)):
+for filename in os.listdir(args.role_descriptions):
+    file_path = os.path.join(args.role_descriptions, filename)
+    if os.path.isfile(os.path.join(args.role_descriptions, filename)):
         with open(file_path, 'r') as f:
             role_name = Path(file_path).stem
             desc = f.read()
@@ -25,14 +32,8 @@ embeddings = eval(requests.post("http://127.0.0.1:8080/get_embeddings", json=jso
 roles = {role_info[0]: emb for role_info, emb in zip(roles_desc, embeddings)}
 
 
-output_filename = '../role_embeddings/role_embeddings.pkl'
-with open(output_filename, 'wb') as f:
+with open(args.output_path, 'wb') as f:
     pickle.dump(roles, f)
 
-if __name__ == '__main__':
-    output_filename = '../role_embeddings/role_embeddings.pkl'
-    with open(output_filename, 'rb') as f:
-        roles_list = pickle.load(f)
-
-
-
+# with open(args.output_path, 'rb') as f:
+#     roles_list = pickle.load(f)
