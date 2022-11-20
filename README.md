@@ -1,4 +1,4 @@
-# NewsRecommendationService
+# News Recommendation Service
 
 *Хакатон ВТБ трек DATA*
 
